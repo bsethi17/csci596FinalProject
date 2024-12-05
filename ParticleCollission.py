@@ -56,5 +56,26 @@ def initialize_scene():
     create_box()
     initialize_particles()
 
+def update_particles(scene):
+    """Update particle positions and handle wall collisions."""
+    for particle in particles:
+        obj = particle["object"]
+        vel = particle["velocity"]
+        obj.location += vel / FRAME_RATE
+        
+        # Wall collision logic
+        for i in range(3):  # Check x, y, z axes
+            if obj.location[i] > (BOX_SIZE / 2 - PARTICLE_RADIUS):
+                vel[i] *= -1
+                obj.location[i] = BOX_SIZE / 2 - PARTICLE_RADIUS  # Correct position
+            elif obj.location[i] < (-BOX_SIZE / 2 + PARTICLE_RADIUS):
+                vel[i] *= -1
+                obj.location[i] = -BOX_SIZE / 2 + PARTICLE_RADIUS  # Correct position
+
+def setup_animation():
+    """Setup the animation loop in Blender."""
+    bpy.app.handlers.frame_change_pre.clear()  # Clear existing handlers
+    bpy.app.handlers.frame_change_pre.append(update_particles)
+
 # Run the simulation setup
 initialize_scene()
