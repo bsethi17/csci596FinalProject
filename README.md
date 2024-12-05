@@ -25,13 +25,14 @@ This project simulates the dynamic behavior of gas particles inside a transparen
    - Visualizing speed distributions and kinetic energy exchanges in a confined system.
 
 ## 🌀 **Speed Ranges**
-The particles are categorized based on their speed (\( |v| \)):
 
-- **Slow (Blue)**: \( |v| < 0.5 \times \text{VELOCITY\_SCALE} \)
-- **Medium (Green)**: \( 0.5 \times \text{VELOCITY\_SCALE} \leq |v| < 1.5 \times \text{VELOCITY\_SCALE} \)
-- **Fast (Red)**: \( |v| \geq 1.5 \times \text{VELOCITY\_SCALE} \)
+The particles are categorized based on their speed (|v|):
 
-For example, if \( \text{VELOCITY\_SCALE} = 2.0 \):
+- **Slow (Blue)**: |v| < 0.5 × VELOCITY_SCALE
+- **Medium (Green)**: 0.5 × VELOCITY_SCALE ≤ |v| < 1.5 × VELOCITY_SCALE
+- **Fast (Red)**: |v| ≥ 1.5 × VELOCITY_SCALE
+
+For example, if VELOCITY_SCALE = 2.0:
 - **Slow (Blue)**: Speeds less than 1.0.
 - **Medium (Green)**: Speeds between 1.0 and 3.0.
 - **Fast (Red)**: Speeds greater than or equal to 3.0.
