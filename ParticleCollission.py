@@ -95,13 +95,14 @@ def handle_particle_collisions():
                 p2["velocity"] += (delta_vel.dot(delta_pos) / delta_pos.length_squared) * delta_pos
 
 
+
+
 def update_particles(scene):
     for particle in particles:
         obj = particle["object"]
         vel = particle["velocity"]
         obj.location += vel / FRAME_RATE
-        
-        
+
         for i in range(3): 
             if obj.location[i] > (BOX_SIZE / 2 - PARTICLE_RADIUS):
                 vel[i] *= -1
@@ -110,7 +111,20 @@ def update_particles(scene):
                 vel[i] *= -1
                 obj.location[i] = -BOX_SIZE / 2 + PARTICLE_RADIUS
 
-    handle_particle_collisions()  
+        
+        speed = vel.length
+        mat = obj.active_material
+        bsdf = mat.node_tree.nodes["Principled BSDF"]
+
+        
+        if speed < VELOCITY_SCALE * 0.3:  
+            bsdf.inputs["Base Color"].default_value = (0.0, 0.0, 1.0, 1.0)  # Blue
+        elif speed < VELOCITY_SCALE * 0.7:  # Medium speed (Green)
+            bsdf.inputs["Base Color"].default_value = (0.0, 1.0, 0.0, 1.0)  # Green
+        else:  # Fast speed (Red)
+            bsdf.inputs["Base Color"].default_value = (1.0, 0.0, 0.0, 1.0)  # Red
+
+    handle_particle_collisions() 
 
 # Run the simulation setup
 initialize_scene()
